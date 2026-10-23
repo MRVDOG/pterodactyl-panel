@@ -19,6 +19,7 @@ import { ChevronDoubleRightIcon } from '@heroicons/react/solid';
 
 import 'xterm/css/xterm.css';
 import styles from './style.module.css';
+import { isConsoleLineFiltered } from '@/lib/consoleFilter';
 
 const theme = {
     background: th`colors.black`.toString(),
@@ -74,8 +75,10 @@ export default () => {
         z-index: 10;
     }`;
 
-    const handleConsoleOutput = (line: string, prelude = false) =>
+    const handleConsoleOutput = (line: string, prelude = false) => {
+        if (!prelude && isConsoleLineFiltered(line)) return;
         terminal.writeln((prelude ? TERMINAL_PRELUDE : '') + line.replace(/(?:\r\n|\r|\n)$/im, '') + '\u001b[0m');
+    };
 
     const handleTransferStatus = (status: string) => {
         switch (status) {

@@ -193,4 +193,18 @@ return [
     'features' => [
         'new_server_identifiers' => (bool) env('PTERODACTYL_USE_SERVER_IDENTIFIERS', false),
     ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Minecraft
+    |--------------------------------------------------------------------------
+    |
+    | Wings publishes allocations on 127.0.0.1 to its Docker network interface
+    | (docker.network.interface in the Wings config) instead, so that is the
+    | address the panel connects to when reading TickScope metrics.
+    */
+
+    'minecraft' => [
+        'metrics_host' => env('MINECRAFT_METRICS_HOST', '172.18.0.1'),
+    ],
 ];

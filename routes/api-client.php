@@ -69,6 +69,12 @@ Route::group([
     Route::get('/resources', Client\Servers\ResourceUtilizationController::class)->name('api:client:server.resources');
     Route::get('/activity', Client\Servers\ActivityLogController::class)->name('api:client:server.activity');
 
+    Route::group(['prefix' => '/minecraft'], function () {
+        Route::get('/status', [Client\Servers\MinecraftController::class, 'status']);
+        Route::get('/overview', [Client\Servers\MinecraftController::class, 'overview']);
+        Route::get('/metrics', [Client\Servers\MinecraftController::class, 'metrics']);
+    });
+
     Route::post('/command', [Client\Servers\CommandController::class, 'index']);
     Route::post('/power', [Client\Servers\PowerController::class, 'index']);
 
